@@ -149,12 +149,12 @@
   "Go to specific file on harpoon (by line order). LINE-NUMBER: Line to go."
   (require 'project)
 
-  (let* ((file-name (s-replace-regexp "\n" ""
+  (let* ((harpoon-file-name (if (eq major-mode 'harpoon-mode)
+              (file-truename (buffer-file-name))
+            (harpoon--file-name)))
+         (file-name (s-replace-regexp "\n" ""
                                       (with-temp-buffer
-                                        (insert-file-contents-literally
-                                         (if (eq major-mode 'harpoon-mode)
-                                             (file-truename (buffer-file-name))
-                                           (harpoon--file-name)))
+                                        (insert-file-contents-literally harpoon-file-name)
                                         (goto-char (point-min))
                                         (forward-line (- line-number 1))
                                         (buffer-substring-no-properties (line-beginning-position) (line-end-position)))))
