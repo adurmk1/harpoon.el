@@ -53,7 +53,7 @@
 
 (defcustom harpoon-without-project-function 'harpoon--package-name
   "When project is not found, use this function instead."
-  :type 'string)
+  :type 'function)
 
 (defcustom harpoon-cache-file (concat user-emacs-directory ".local/harpoon/")
   "Where the cache will be saved."
